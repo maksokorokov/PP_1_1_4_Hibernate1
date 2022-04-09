@@ -20,19 +20,19 @@ public class Main {
         User user4 = new User("Name4", "LastName4", (byte) 44);
 
         userDaoJDBC.saveUser(user1.getName(), user1.getLastName(), user1.getAge());
+        System.out.println("User с именем – " + user1.getName() + " добавлен в базу данных");
         userDaoJDBC.saveUser(user2.getName(), user2.getLastName(), user2.getAge());
+        System.out.println("User с именем – " + user2.getName() + " добавлен в базу данных");
         userDaoJDBC.saveUser(user3.getName(), user3.getLastName(), user3.getAge());
+        System.out.println("User с именем – " + user3.getName() + " добавлен в базу данных");
         userDaoJDBC.saveUser(user4.getName(), user4.getLastName(), user4.getAge());
+        System.out.println("User с именем – " + user4.getName() + " добавлен в базу данных");
 
 
+        List<User> allUsers = userDaoJDBC.getAllUsers();
+        allUsers.forEach(System.out::println);
 
-        userDaoJDBC.removeUserById(2);
-
-        List<User> list = userDaoJDBC.getAllUsers();
-        for (User u:list){
-            System.out.println(u);
-        }
-
+        userDaoJDBC.cleanUsersTable();
         userDaoJDBC.dropUsersTable();
     }
 }
