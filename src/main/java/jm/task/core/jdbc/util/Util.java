@@ -23,7 +23,7 @@ public class Util {
 
     private static SessionFactory sessionFactory;
 
-    public static Connection getConnection() {
+    public static Connection getConnection()  {
         Connection connection = null;
 
         try {
