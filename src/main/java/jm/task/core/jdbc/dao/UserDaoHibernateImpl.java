@@ -5,6 +5,7 @@ import jm.task.core.jdbc.util.Util;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,10 +22,10 @@ public class UserDaoHibernateImpl implements UserDao {
         try (Session session = Util.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.createSQLQuery("CREATE TABLE IF NOT EXISTS users" +
-                    "( id INT PRIMARY KEY AUTO_INCREMENT," +
+                    "( id BIGINT PRIMARY KEY AUTO_INCREMENT," +
                     "name VARCHAR(255)," +
                     "lastName VARCHAR(255)," +
-                    "age INT)").addEntity(User.class).executeUpdate();
+                    "age TINYINT)").addEntity(User.class).executeUpdate();
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -65,7 +66,12 @@ public class UserDaoHibernateImpl implements UserDao {
     public void removeUserById(long id) {
         try (Session session = Util.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.delete(session.get(User.class, id));
+            Query query = session.createQuery("DELETE FROM User WHERE id = :id");
+            query.setParameter("id",id);
+            query.executeUpdate();
+            transaction.commit();
+
+//            session.delete(session.get(User.class, id));
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
