@@ -13,6 +13,7 @@ public class Main {
     public static void main(String[] args) {
         // реализуйте алгоритм здесь
 
+        //кек
         UserDao userDao = new UserDaoHibernateImpl();
 
         userDao.createUsersTable();
@@ -37,7 +38,7 @@ public class Main {
         List<User> allUsers = userDao.getAllUsers();
         allUsers.forEach(System.out::println);
 
-        userDao.dropUsersTable();
+//        userDao.dropUsersTable();
 
 
     }
